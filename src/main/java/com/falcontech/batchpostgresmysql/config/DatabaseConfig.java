@@ -41,7 +41,7 @@ public class DatabaseConfig {
         new LocalContainerEntityManagerFactoryBean();
 
     lem.setDataSource(postgresdatasource());
-    lem.setPackagesToScan("com.infybuzz.postgresql.entity");
+    lem.setPackagesToScan("com.falcontech.batchpostgresmysql.postgres.entity");
     lem.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
     lem.setPersistenceProviderClass(HibernatePersistenceProvider.class);
     lem.afterPropertiesSet();
@@ -55,7 +55,7 @@ public class DatabaseConfig {
         new LocalContainerEntityManagerFactoryBean();
 
     lem.setDataSource(universitydatasource());
-    lem.setPackagesToScan("com.infybuzz.mysql.entity");
+    lem.setPackagesToScan("com.falcontech.batchpostgresmysql.mysql.entity");
     lem.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
     lem.setPersistenceProviderClass(HibernatePersistenceProvider.class);
     lem.afterPropertiesSet();

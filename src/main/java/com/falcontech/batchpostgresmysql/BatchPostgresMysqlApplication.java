@@ -8,7 +8,6 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @EnableBatchProcessing
 @ComponentScan({"com.falcontech.batchpostgresmysql.config",
-    "com.falcontech.batchpostgresmysql.reader",
     "com.falcontech.batchpostgresmysql.processor"})
 public class BatchPostgresMysqlApplication {
 
