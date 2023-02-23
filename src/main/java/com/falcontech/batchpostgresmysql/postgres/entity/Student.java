@@ -1,13 +1,18 @@
 package com.falcontech.batchpostgresmysql.postgres.entity;
 
-import lombok.Data;
+import lombok.*;
+import org.hibernate.Hibernate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Objects;
 
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @Entity
 @Table(name = "student")
 public class Student {
@@ -22,9 +27,16 @@ public class Student {
 
   private String email;
 
-  @Column(name = "dept_id")
-  private Long deptId;
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+    Student student = (Student) o;
+    return id != null && Objects.equals(id, student.id);
+  }
 
-  @Column(name = "is_active")
-  private String isActive;
+  @Override
+  public int hashCode() {
+    return getClass().hashCode();
+  }
 }

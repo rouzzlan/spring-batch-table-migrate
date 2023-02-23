@@ -4,6 +4,7 @@ version: '3.8'
 services:
   postgres-db:
     image: postgres:15.2
+    container_name: spring-batch-udemy-tutorial-university-postgres-db
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: pass
@@ -13,8 +14,8 @@ services:
     volumes:
       - postgres-spring-batch-db:/var/lib/postgresql/data
   mysql-batch-db:
-    image: mysql
-    container_name: spring-batch-udemy-tutorial-mysql-db
+    image: mysql:8.0
+    container_name: spring-batch-udemy-tutorial-batch-mysql-db
     # NOTE: use of "mysql_native_password" is not recommended: https://dev.mysql.com/doc/refman/8.0/en/upgrading-from-previous-series.html#upgrade-caching-sha2-password
     # (this is just an example, not intended to be a production configuration)
     command: --default-authentication-plugin=mysql_native_password
@@ -24,16 +25,16 @@ services:
       MYSQL_USER: user
       MYSQL_PASSWORD: pass
     ports:
-      - "3315:3306"
+      - "3317:3306"
   mysql-db:
-    image: mysql
-    container_name: spring-batch-udemy-tutorial-mysql-db
+    image: mysql:8.0
+    container_name: spring-batch-udemy-tutorial-university-mysql-db
     # NOTE: use of "mysql_native_password" is not recommended: https://dev.mysql.com/doc/refman/8.0/en/upgrading-from-previous-series.html#upgrade-caching-sha2-password
     # (this is just an example, not intended to be a production configuration)
     command: --default-authentication-plugin=mysql_native_password
     environment:
       MYSQL_ROOT_PASSWORD: example
-      MYSQL_DATABASE: spring_batch
+      MYSQL_DATABASE: university
       MYSQL_USER: user
       MYSQL_PASSWORD: pass
     ports:
