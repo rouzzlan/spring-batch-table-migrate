@@ -1,0 +1,47 @@
+# Use root/example as user/password credentials
+version: '3.8'
+
+services:
+  postgres-db:
+    image: postgres:15.2
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: university
+    ports:
+      - '5433:5432'
+    volumes:
+      - postgres-spring-batch-db:/var/lib/postgresql/data
+  mysql-batch-db:
+    image: mysql
+    container_name: spring-batch-udemy-tutorial-mysql-db
+    # NOTE: use of "mysql_native_password" is not recommended: https://dev.mysql.com/doc/refman/8.0/en/upgrading-from-previous-series.html#upgrade-caching-sha2-password
+    # (this is just an example, not intended to be a production configuration)
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: spring_batch
+      MYSQL_USER: user
+      MYSQL_PASSWORD: pass
+    ports:
+      - "3315:3306"
+  mysql-db:
+    image: mysql
+    container_name: spring-batch-udemy-tutorial-mysql-db
+    # NOTE: use of "mysql_native_password" is not recommended: https://dev.mysql.com/doc/refman/8.0/en/upgrading-from-previous-series.html#upgrade-caching-sha2-password
+    # (this is just an example, not intended to be a production configuration)
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: spring_batch
+      MYSQL_USER: user
+      MYSQL_PASSWORD: pass
+    ports:
+      - "3316:3306"
+    volumes:
+      - mysql-spring-batch-db:/var/lib/mysql
+volumes:
+  postgres-spring-batch-db:
+    driver: local
+  mysql-spring-batch-db:
+    driver: local
