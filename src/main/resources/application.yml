@@ -2,6 +2,8 @@ spring:
   batch:
     jdbc:
       initialize-schema: always
+    job:
+      enabled: ${BATCH_ENABLED:false}
 batch:
   db:
     conf:
