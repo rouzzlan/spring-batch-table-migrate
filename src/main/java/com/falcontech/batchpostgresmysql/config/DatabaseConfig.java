@@ -1,6 +1,10 @@
 package com.falcontech.batchpostgresmysql.config;
 
+import com.falcontech.batchpostgresmysql.env.BatchDBConfig;
+import com.falcontech.batchpostgresmysql.env.BatchDestinationDBConfig;
+import com.falcontech.batchpostgresmysql.env.BatchSourceDBCofnig;
 import org.hibernate.jpa.HibernatePersistenceProvider;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,16 +19,22 @@ import javax.sql.DataSource;
 
 @Configuration
 public class DatabaseConfig {
+  @Autowired
+  private BatchDBConfig batchDBConfig;
+  @Autowired
+  private BatchSourceDBCofnig batchSourceDBCofnig;
+  @Autowired
+  private BatchDestinationDBConfig batchDestinationDBConfig;
 
   @Bean
   @Primary
   @ConfigurationProperties(prefix = "spring.datasource")
   public DataSource datasource() {
     DriverManagerDataSource dataSource = new DriverManagerDataSource();
-    dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-    dataSource.setUrl("jdbc:mysql://localhost:3317/spring_batch");
-    dataSource.setUsername("user");
-    dataSource.setPassword("pass");
+    dataSource.setDriverClassName(batchDBConfig.DRIVER);
+    dataSource.setUrl(batchDBConfig.getDbUrl());
+    dataSource.setUsername(batchDBConfig.getUser());
+    dataSource.setPassword(batchDBConfig.getPass());
     return dataSource;
 
   }
@@ -32,10 +42,10 @@ public class DatabaseConfig {
   @Bean
   public DataSource universitydatasource() {
     DriverManagerDataSource dataSource = new DriverManagerDataSource();
-    dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-    dataSource.setUrl("jdbc:mysql://localhost:3316/university");
-    dataSource.setUsername("user");
-    dataSource.setPassword("pass");
+    dataSource.setDriverClassName(batchDestinationDBConfig.DRIVER);
+    dataSource.setUrl(batchDestinationDBConfig.getDbUrl());
+    dataSource.setUsername(batchDestinationDBConfig.getUser());
+    dataSource.setPassword(batchDestinationDBConfig.getPass());
     return dataSource;
   }
 
@@ -43,10 +53,10 @@ public class DatabaseConfig {
   @ConfigurationProperties(prefix = "spring.postgresdatasource")
   public DataSource postgresdatasource() {
     DriverManagerDataSource dataSource = new DriverManagerDataSource();
-    dataSource.setDriverClassName("org.postgresql.Driver");
-    dataSource.setUrl("jdbc:postgresql://localhost:5433/university");
-    dataSource.setUsername("user");
-    dataSource.setPassword("pass");
+    dataSource.setDriverClassName(batchSourceDBCofnig.DRIVER);
+    dataSource.setUrl(batchSourceDBCofnig.getDbUrl());
+    dataSource.setUsername(batchSourceDBCofnig.getUser());
+    dataSource.setPassword(batchSourceDBCofnig.getPass());
     return dataSource;
   }
 
