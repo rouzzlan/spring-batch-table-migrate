@@ -90,7 +90,7 @@
 					</execution>
 				</executions>
 				<configuration>
-					<repository>rouzzlan/${project.artifactId}</repository>
+					<repository>docker-repo.localdomain/${project.artifactId}</repository>
 					<tag>${project.version}</tag>
 					<buildArgs>
 						<JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
