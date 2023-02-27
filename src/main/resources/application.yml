@@ -1,0 +1,20 @@
+spring:
+  batch:
+    jdbc:
+      initialize-schema: always
+batch:
+  db:
+    conf:
+      db-url: jdbc:mysql://localhost:3317/spring_batch
+      user: user
+      pass: pass
+    source:
+      conf:
+        db-url: jdbc:postgresql://localhost:5433/university
+        user: user
+        pass: pass
+    dest:
+      conf:
+        db-url: jdbc:mysql://localhost:3316/university
+        user: user
+        pass: pass
