@@ -3,6 +3,9 @@
     <option name="ALTERNATIVE_JRE_PATH" value="1.8 dragonwell" />
     <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
     <module name="batch-postgres-mysql" />
+    <selectedOptions>
+      <option name="environmentVariables" />
+    </selectedOptions>
     <option name="SPRING_BOOT_MAIN_CLASS" value="com.falcontech.batchpostgresmysql.BatchPostgresMysqlApplication" />
     <method v="2">
       <option name="Make" enabled="true" />
