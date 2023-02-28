@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  mysql-batch-db-test-1:
+  mysqldb:
     image: mysql:8.0
     container_name: batch-job-storage-db-1
     # NOTE: use of "mysql_native_password" is not recommended: https://dev.mysql.com/doc/refman/8.0/en/upgrading-from-previous-series.html#upgrade-caching-sha2-password
@@ -14,15 +14,18 @@ services:
       MYSQL_PASSWORD: pass
     ports:
       - "3319:3306"
+    volumes:
+      - mysql-spring-batch-db-2:/var/lib/mysql
   batch-job-test-1:
     image: docker-repo.localdomain/batch-postgres-mysql:0.0.1-SNAPSHOT
     container_name: exec-container-1
     environment:
       BATCH_ENABLED: true
-      BATCH_DB_URL: jdbc:mysql://mysql-batch-db:3306/spring_batch
-      BATCH_DB_USER: user
-      BATCH_DB_PASS: pass
+      BATCH_DB_URL: jdbc:mysql://mysqldb:3306/spring_batch
       BATCH_SOURCE_DB_URL: jdbc:postgresql://192.168.100.166:54033/university
       BATCH_DEST_DB_URL: jdbc:mysql://192.168.100.166:33016/university
     depends_on:
-      - mysql-batch-db-test-1
+      - mysqldb
+volumes:
+  mysql-spring-batch-db-2:
+    driver: local
