@@ -50,7 +50,7 @@ public class SampleJob {
 
   private Step firstChunkStep() {
     return stepBuilderFactory.get("First Chunk Step")
-        .<com.falcontech.batchpostgresmysql.postgres.entity.Student, com.falcontech.batchpostgresmysql.mysql.entity.Student>chunk(3)
+        .<com.falcontech.batchpostgresmysql.postgres.entity.Student, com.falcontech.batchpostgresmysql.mysql.entity.Student>chunk(10)
         .reader(jpaCursorItemReader())
         .processor(firstItemProcessor)
         .writer(jpaItemWriter())
@@ -65,7 +65,7 @@ public class SampleJob {
 
   public JpaCursorItemReader<com.falcontech.batchpostgresmysql.postgres.entity.Student> jpaCursorItemReader() {
     JpaCursorItemReader<com.falcontech.batchpostgresmysql.postgres.entity.Student> jpaCursorItemReader =
-        new JpaCursorItemReader<com.falcontech.batchpostgresmysql.postgres.entity.Student>();
+        new JpaCursorItemReader<>();
 
     jpaCursorItemReader.setEntityManagerFactory(postgresqlEntityManagerFactory);
 
@@ -76,7 +76,7 @@ public class SampleJob {
 
   public JpaItemWriter<com.falcontech.batchpostgresmysql.mysql.entity.Student> jpaItemWriter() {
     JpaItemWriter<com.falcontech.batchpostgresmysql.mysql.entity.Student> jpaItemWriter =
-        new JpaItemWriter<com.falcontech.batchpostgresmysql.mysql.entity.Student>();
+        new JpaItemWriter<>();
 
     jpaItemWriter.setEntityManagerFactory(mysqlEntityManagerFactory);
 
